@@ -65,6 +65,8 @@
       <label>完了？：</label>
       <%= f.check_box :completed %> <span>完了済み</span>
 
+      <%= f.hidden_field :posted_by, value: current_user.id %> <!-- 現在のユーザーIDを隠しフィールドに設定 -->
+
       <br>
       <button type="submit">✅ 追加</button>
     <% end %>

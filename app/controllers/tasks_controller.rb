@@ -1,8 +1,9 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:edit, :update, :destroy]
+  before_action :set_task, only: %i[show edit update destroy]
+  before_action :authenticate_user!
 
   def index
-    @tasks = Task.all.order(:due_date)
+    @tasks = Task.all
   end
 
   def new
@@ -11,28 +12,29 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
+    @task.posted_by = current_user.id # 現在のユーザーのIDを保存
+
     if @task.save
-      redirect_to root_path, notice: "タスクを追加しました！"
+      redirect_to tasks_path, notice: 'タスクが追加されました。'
     else
       render :new
     end
   end
-
 
   def edit
   end
 
   def update
     if @task.update(task_params)
-      redirect_to root_path, notice: "タスクを更新しました！"
+      redirect_to tasks_path, notice: 'タスクが更新されました。'
     else
-      render :edit, status: :unprocessable_entity
+      render :edit
     end
   end
 
   def destroy
     @task.destroy
-    redirect_to root_path, notice: "タスクを削除しました！", status: :see_other
+    redirect_to tasks_path, notice: 'タスクが削除されました。'
   end
 
   private
