@@ -25,6 +25,9 @@
       font-size: 20px;
       padding: 10px;
       border-bottom: 1px solid #ddd;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
     .task:last-child {
       border-bottom: none;
@@ -33,19 +36,28 @@
       text-decoration: line-through;
       color: gray;
     }
+    .buttons {
+      display: flex;
+      gap: 10px;
+    }
     .button {
-      display: inline-block;
-      padding: 10px 20px;
-      margin: 10px;
-      font-size: 18px;
+      padding: 5px 10px;
+      font-size: 14px;
       background-color: #4CAF50;
       color: white;
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      text-decoration: none;
     }
     .button:hover {
       background-color: #45a049;
+    }
+    .delete-button {
+      background-color: #ff4444;
+    }
+    .delete-button:hover {
+      background-color: #cc0000;
     }
   </style>
 </head>
@@ -55,7 +67,15 @@
   <div class="task-list">
     <% @tasks.each do |task| %>
       <div class="task <%= 'completed' if task.completed %>">
-        <%= task.title %>（締め切り: <%= task.due_date %>）
+        <span>
+          <%= task.title %>（締め切り: <%= task.due_date %>）
+        </span>
+        <div class="buttons">
+          <!-- 📝 編集ボタン -->
+          <a href="<%= edit_task_path(task) %>" class="button">📝 編集</a>
+          <!-- 🗑️ 削除ボタン -->
+          <%= link_to "🗑️ 削除", task, method: :delete, data: { confirm: "本当に削除しますか？" }, class: "button delete-button" %>
+        </div>
       </div>
     <% end %>
   </div>
