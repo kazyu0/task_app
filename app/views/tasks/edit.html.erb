@@ -1,28 +1,95 @@
-<h1>📝 タスクを編集</h1>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>タスクを編集</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f8ff;
+      text-align: center;
+      padding: 20px;
+    }
+    .container {
+      width: 50%;
+      margin: 50px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #ff4500;
+      font-size: 24px;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    label {
+      font-size: 18px;
+      margin-top: 10px;
+    }
+    input, textarea {
+      width: 80%;
+      padding: 8px;
+      margin-top: 5px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .button-container {
+      display: flex;
+      justify-content: space-between; /* ボタンを左右に配置 */
+      width: 80%; /* ボタンコンテナの幅を設定 */
+      margin-top: 20px;
+    }
+    .button {
+      width: 48%; /* ボタンの幅を設定（左右に分けるため） */
+      padding: 15px;
+      font-size: 18px;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .update-button {
+      background-color: #4CAF50; /* 更新ボタンの背景色 */
+    }
+    .update-button:hover {
+      background-color: #45a049; /* 更新ボタンのホバー時の色 */
+    }
+    .cancel-button {
+      background-color: #ff4444; /* キャンセルボタンの背景色 */
+    }
+    .cancel-button:hover {
+      background-color: #cc0000; /* キャンセルボタンのホバー時の色 */
+    }
+ 
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📝 タスクを編集</h1>
 
-<%= form_with model: @task, local: true do |f| %>
-  <div>
-    <label>タスク名：</label>
-    <%= f.text_field :title, required: true %>
+    <%= form_with(model: @task, local: true) do |f| %>
+      <label>タスク名:</label>
+      <%= f.text_field :title %>
+
+      <label>説明:</label>
+      <%= f.text_area :description %>
+
+      <label>締め切り日:</label>
+      <%= f.date_field :due_date %>
+
+      <label>完了済み:</label>
+      <%= f.check_box :completed %>
+
+      <div class="button-container">
+        <%= f.submit "✅ こうしんする", class: "button update-button" %> <!-- 更新ボタン -->
+        <a href="<%= root_path %>" class="button cancel-button">🔙 キャンセルする</a> <!-- キャンセルボタン -->
+      </div>
+    <% end %>
   </div>
-
-  <div>
-    <label>説明：</label>
-    <%= f.text_area :description %>
-  </div>
-
-  <div>
-    <label>締め切り：</label>
-    <%= f.date_field :due_date %>
-  </div>
-
-  <div>
-    <label>完了？：</label>
-    <%= f.check_box :completed %> <span>完了済み</span>
-  </div>
-
-  <button type="submit">💾 更新</button>
-<% end %>
-
-<br>
-<a href="/">🏠 ホームに戻る</a>
+</body>
+</html>
