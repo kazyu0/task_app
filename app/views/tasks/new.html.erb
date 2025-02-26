@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>タスク追加</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f8ff;
+      text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      color: #ff4500;
+      font-size: 28px;
+    }
+    .form-container {
+      width: 50%;
+      margin: 0 auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+    }
+    label {
+      font-size: 18px;
+      display: block;
+      margin-top: 10px;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <h1>➕ 新しいタスクを追加</h1>
+
+  <div class="form-container">
+    <%= form_with model: @task, url: tasks_path, local: true do |f| %>
+      <label>タスク名：</label>
+      <%= f.text_field :title, required: true %>
+
+      <label>説明：</label>
+      <%= f.text_area :description %>
+
+      <label>締め切り：</label>
+      <%= f.date_field :due_date %>
+
+      <label>完了？：</label>
+      <%= f.check_box :completed %> <span>完了済み</span>
+
+      <br>
+      <button type="submit">✅ 追加</button>
+    <% end %>
+  </div>
+
+  <br>
+  <a href="/">🏠 ホームに戻る</a>
+</body>
+</html>
